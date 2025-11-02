@@ -26,19 +26,33 @@ const Zakat = () => {
   });
 
   const calculateZakat = () => {
-    const total = 
-      (parseFloat(values.cash) || 0) +
-      (parseFloat(values.gold) || 0) +
-      (parseFloat(values.silver) || 0) +
-      (parseFloat(values.investments) || 0) -
-      (parseFloat(values.debts) || 0);
+    const cash = parseFloat(values.cash) || 0;
+    const gold = parseFloat(values.gold) || 0;
+    const silver = parseFloat(values.silver) || 0;
+    const investments = parseFloat(values.investments) || 0;
+    const debts = parseFloat(values.debts) || 0;
     
-    const nisab = 85 * 5000; // Примерный нисаб в рублях
-    
-    if (total >= nisab) {
-      setZakatAmount(total * 0.025);
-      setCalculated(true);
+    // Проверка на отрицательные значения
+    if (cash < 0 || gold < 0 || silver < 0 || investments < 0 || debts < 0) {
+      alert("Значения не могут быть отрицательными");
+      return;
     }
+    
+    const totalAssets = cash + gold + silver + investments;
+    const netWealth = totalAssets - debts;
+    
+    // Нисаб (примерно 85 грамм золота по цене ~5000₽/г = 425,000₽)
+    const nisab = 425000;
+    
+    if (netWealth < nisab) {
+      alert(`Ваше имущество (${netWealth.toLocaleString('ru-RU')} ₽) ниже нисаба (${nisab.toLocaleString('ru-RU')} ₽). Закят не обязателен.`);
+      return;
+    }
+    
+    // Закят = 2.5% от чистого имущества
+    const calculatedZakat = netWealth * 0.025;
+    setZakatAmount(calculatedZakat);
+    setCalculated(true);
   };
 
   const handlePayment = () => {

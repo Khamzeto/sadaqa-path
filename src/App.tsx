@@ -7,6 +7,8 @@ import Donate from "./pages/Donate";
 import DonateAmount from "./pages/DonateAmount";
 import DonateSuccess from "./pages/DonateSuccess";
 import Campaigns from "./pages/Campaigns";
+import CampaignCreate from "./pages/CampaignCreate";
+import CampaignDetail from "./pages/CampaignDetail";
 import History from "./pages/History";
 import More from "./pages/More";
 import Support from "./pages/Support";
@@ -28,6 +30,8 @@ const App = () => (
           <Route path="/donate/:fundId" element={<DonateAmount />} />
           <Route path="/donate/success" element={<DonateSuccess />} />
           <Route path="/campaigns" element={<Campaigns />} />
+          <Route path="/campaigns/create" element={<CampaignCreate />} />
+          <Route path="/campaigns/:id" element={<CampaignDetail />} />
           <Route path="/history" element={<History />} />
           <Route path="/more" element={<More />} />
           <Route path="/support" element={<Support />} />
